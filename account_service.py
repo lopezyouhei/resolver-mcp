@@ -16,7 +16,7 @@ def get_account_status(account_id: str) -> dict:
         account_id (str): The account ID to look up.
 
     Returns:
-        dict: The account's information, including status and flag reason.
+        dict: The account's information, including status ("active" or "flagged") and flag reason.
               If the account is not found, returns "unknown" status.
     """
     acc = ACCOUNTS.get(account_id)
