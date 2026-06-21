@@ -9,21 +9,24 @@ AMOUNT = 12.99
 def test_process_active_account():
     result = process_refund("user_1001", AMOUNT)
     assert result.get("refund_status") == "refunded"
-    assert type(result.get("amount")) is float
+    assert isinstance(result.get("amount"), float)
+    assert result.get("amount") == AMOUNT
 
 
 def test_process_flagged_account():
     result = process_refund("user_1002", amount=AMOUNT)
     assert result.get("refund_status") == "refused"
     assert result.get("amount") is None
-    assert type(result.get("reason")) is str
+    assert isinstance(result.get("reason"), str)
+    assert "flag" in result.get("reason").lower()
 
 
 def test_process_unknown_account():
     result = process_refund("Lukas", amount=AMOUNT)
     assert result.get("refund_status") == "refused"
     assert result.get("amount") is None
-    assert type(result.get("reason")) is str
+    assert isinstance(result.get("reason"), str)
+    assert "verif" in result.get("reason").lower()
 
 
 async def test_process_refund_mcp():

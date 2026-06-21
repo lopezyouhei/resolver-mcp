@@ -7,11 +7,13 @@ from servers.account_service import mcp as account_status_server
 def test_get_active_account():
     result = get_account_status("user_1001")
     assert result.get("status") == "active"
+    assert result.get("flag_reason") is None
 
 
 def test_get_flagged_account():
     result = get_account_status("user_1002")
     assert result.get("status") == "flagged"
+    assert isinstance(result.get("flag_reason"), str)
 
 
 def test_get_unknown_account():
